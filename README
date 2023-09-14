@@ -1,0 +1,37 @@
+Repository containing data accompanying the paper
+"Quadratic Scaling Bosonic Path Integral Molecular Dynamics"
+by Y. M. Y. Feldman and B. Hirshberg, https://arxiv.org/abs/2305.18025.
+
+The code is available in https://github.com/Hirshberg-Lab/lammps/tree/pimdb-elong (commit 9d70835).
+
+inputs/
+	Contains LAMMPS inputs for the simulations of bosonic and distinguishable particles presented in the paper.
+
+        - Fig 3: scalability of noninteracting particles.
+		noninteracting bosonic:
+			lammps_input_nbeads_32_id_noninteracting_{num_particles}_5.8_1000_98743501_bosons.in
+			(e.g. lammps_input_nbeads_32_id_noninteracting_512_5.8_1000_98743501_bosons.in)
+		noninteracting distinguishable:
+			lammps_input_nbeads_32_id_distinguishable_noninteracting_{num_particles}_5.8_1000_98743501_bosons.in
+			(e.g. lammps_input_nbeads_32_id_distinguishable_noninteracting_16_5.8_1000_98743501_bosons.in)
+
+	- Fig 4: N=1372 liquid 4He atoms.
+		lammps_input_nbeads_96_id_liquid_he_1372_0.02182_1.379_2500000_98743501_bosons.in
+
+	- Supporting Fig 2 (left): energy of noninteracting bosons as a function of N.
+		lammps_input_nbeads_36_id_noninteracting_{num_particles}_5.8_1000_{seed}_bosons.in
+		(e.g. lammps_input_nbeads_36_id_noninteracting_64_5.8_1000_98743501_bosons.in)
+
+	- Supporting Fig 2 (right): energy of noninteracting bosons as a function of the temperature.
+		lammps_input_nbeads_36_id_noninteracting_16_{temperature_kelvin}_1000000_{seed}_bosons.in
+		(e.g. lammps_input_nbeads_36_id_noninteracting_16_11.6_1000000_98743501_bosons.in)
+
+	- Supporting Fig 3: 4 bosons with Gaussian repulsion.
+		lammps_input_nbeads_72_id_interacting_gaussian_4_{gaussian_strength}_5.8_10000000_{seed}_bosons.in
+		(e.g. lammps_input_nbeads_72_id_interacting_gaussian_4_8_5.8_10000000_98743501_bosons.in)
+
+	- Supporting Fig 4 (right): scalability of bosonic He atoms.
+		lammps_input_nbeads_64_id_liquid_he_{num_atoms}_0.02182_1.21_1000_98743501_bosons.in
+		(e.g. lammps_input_nbeads_64_id_liquid_he_256_0.02182_1.21_1000_98743501_bosons.in) 
+		
+		

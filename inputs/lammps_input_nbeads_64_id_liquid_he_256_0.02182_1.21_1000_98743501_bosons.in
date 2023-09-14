@@ -1,0 +1,59 @@
+
+### Units and dimensions
+units metal  # (Mass: grams/mole, Time: ps, Energy: eV, Force: eV/Angstroms, Temp: K, Dist: Angstroms)
+dimension 3
+boundary p p p
+atom_style atomic
+atom_modify sort 0 0.0 map yes
+
+### User-defined parameters
+timestep 0.0005  # Timestep of the MD simulation in picoseconds (0.0005 ps = 0.5 fs)
+variable Temp equal 1.21  # Define temperature in Kelvins
+
+variable Nbeads equal 64.0  # Define the number of beads
+# Add all the beads using a loop ('pad' forces all values to be of same length, e.g, 01, 02, .., 16)
+variable ibead uloop ${Nbeads} pad
+# Simulation seed
+variable seed equal 98743501
+
+# Create region called 'box' (distances are in Angstroms)
+variable Natoms equal 256
+variable target_density equal 0.02182
+variable cubelength equal (${Natoms}/${target_density})^(1/3)
+variable latticedelta equal ${cubelength}*((4.0/${Natoms})^(1/3))
+lattice fcc ${latticedelta}
+region box block 0 ${cubelength} 0 ${cubelength} 0 ${cubelength} units box
+create_box 1 box
+create_atoms 1 box 
+
+# In metal units, the mass is g/mol (here, it is the mass of 1 mole of He in grams)
+mass 1 4.002602
+
+# Interaction between particles
+pair_style table linear 10000000 
+pair_coeff  1 1 /hirshblab-storage/yotamfe1/liquid_he/aziz-lammps.txt Aziz79
+
+neighbor 1.0 bin
+neigh_modify every 1 delay 5 check yes
+
+# Initialize velocities
+velocity all create ${Temp} ${seed}${ibead} mom yes rot yes dist gaussian
+
+# Dump trajectories
+dump xyz all xyz 100 system_${ibead}.xyz
+
+# Define the number of chains for the Nose-Hoover (NH) chains thermostat
+variable nhc equal 4
+
+fix 12 all pimdb method nmpimd fmass 1.0 sp 1.0 temp ${Temp} nhc ${nhc}
+
+# Define variables that will record the results produced by fix_pimdb
+variable newvir equal f_12[3]  # The third value returned by fix_pimdb ('virial' - the virial estimator)
+variable modeT equal f_12[2]  # The second value returned by fix_pimdb ('t_sys' - group temperature)
+
+thermo_style custom step time temp pe v_newvir
+
+# Output thermodynamics every 100 timesteps
+thermo 100 
+
+run 1000
