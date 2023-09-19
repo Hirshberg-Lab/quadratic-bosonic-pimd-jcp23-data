@@ -32,6 +32,10 @@ inputs/
 
 	- Supporting Fig 4 (right): scalability of bosonic He atoms.
 		lammps_input_nbeads_64_id_liquid_he_{num_atoms}_0.02182_1.21_1000_98743501_bosons.in
-		(e.g. lammps_input_nbeads_64_id_liquid_he_256_0.02182_1.21_1000_98743501_bosons.in) 
+		(e.g. lammps_input_nbeads_64_id_liquid_he_256_0.02182_1.21_1000_98743501_bosons.in)
+ 
+	- Supporting Fig 6: 2D density of N=1600 interacting trapped particles.
+		lammps_input_nbeads_36_id_interacting_gaussian_1600_{gaussian_strength}_11.6_3000000_98743501_bosons.in
+		(e.g. lammps_input_nbeads_36_id_interacting_gaussian_1600_3_11.6_3000000_98743501_bosons.in) 
 		
 		
